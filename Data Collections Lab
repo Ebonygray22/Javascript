@@ -1,0 +1,40 @@
+// Example data (from Part 3)
+const data = [
+    { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+    { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+    { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+    { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+    { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+];
+
+// Remove the last element from the array
+data.pop();
+
+// Insert a new object at index 1
+const newObject = { id: "48", name: "Barry", occupation: "Runner", age: "25" };
+data.splice(1, 0, newObject);
+
+// Add another object to the end of the array
+const additionalObject = { id: "7", name: "Bilbo", occupation: "None", age: "111" };
+data.push(additionalObject);
+
+// Calculate the average age
+let totalAge = 0;
+for (const person of data) {
+    totalAge += parseInt(person.age);
+}
+const averageAge = totalAge / data.length;
+
+console.log(`Average age: ${averageAge.toFixed(2)}`);
+
+// Transform data back into CSV format
+const headings = Object.keys(data[0]);
+const csvRows = [headings.join(',')];
+
+for (const person of data) {
+    const rowValues = headings.map(key => person[key]);
+    csvRows.push(rowValues.join(','));
+}
+
+const csvString = csvRows.join('\n');
+console.log(csvString);

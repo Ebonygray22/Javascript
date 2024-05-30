@@ -1,0 +1,108 @@
+// Part 1: Thinking Functionally
+
+// Function to calculate the sum of an array of numbers
+function sumArray(numbers) {
+    return numbers.reduce((a, b) => a + b, 0);
+}
+
+// Function to calculate the average of an array of numbers
+function averageArray(numbers) {
+    return sumArray(numbers) / numbers.length;
+}
+
+// Function to find the longest string in an array
+function longestString(strings) {
+    return strings.reduce((a, b) => a.length > b.length ? a : b);
+}
+
+// Function to filter strings longer than a given length
+function stringsLongerThan(strings, length) {
+    return strings.filter(str => str.length > length);
+}
+
+// Function to print numbers from 1 to n using recursion
+function printNumbers(n, current = 1) {
+    if (current > n) {
+        return;
+    }
+    console.log(current);
+    printNumbers(n, current + 1);
+}
+
+// Part 2: Thinking Methodically
+
+let data = [
+    { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+    { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+    { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+    { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+    { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+];
+
+// Convert age to number
+data.forEach(person => person.age = Number(person.age));
+
+// Sort the array by age
+data.sort((a, b) => a.age - b.age);
+
+// Filter the array to remove entries with an age greater than 50
+let filteredData = data.filter(person => person.age <= 50);
+
+// Map the array to change the “occupation” key to “job” and increment every age by 1
+let mappedData = filteredData.map(person => ({...person, job: person.occupation, age: person.age + 1}));
+
+// Use the reduce method to calculate the sum of the ages
+let ageSumMapped = mappedData.reduce((sum, person) => sum + person.age, 0);
+
+// Calculate the average age
+let averageAgeMapped = ageSumMapped / mappedData.length;
+
+// Part 3: Thinking Critically
+
+// Function to increment the age field of an object
+function incrementAge(obj) {
+    if (!obj.hasOwnProperty('age')) {
+        obj.age = 0;
+    }
+    obj.age++;
+    obj.updated_at = new Date();
+}
+
+// Function to make a copy of an object and increment the age field of the copy
+function incrementAgeCopy(obj) {
+    let copy = JSON.parse(JSON.stringify(obj));
+    if (!copy.hasOwnProperty('age')) {
+        copy.age = 0;
+    }
+    copy.age++;
+    copy.updated_at = new Date();
+    return copy;
+}
+
+// Calculate the sum of an array of numbers
+let sum = sumArray([1, 2, 3, 4, 5]);
+console.log(`Sum: ${sum}`);
+
+// Calculate the average of an array of numbers
+let average = averageArray([1, 2, 3, 4, 5]);
+console.log(`Average: ${average}`);
+
+// Find the longest string in an array
+let longest = longestString(["apple", "banana", "cherry"]);
+console.log(`Longest string: ${longest}`);
+
+// Filter strings longer than a given length
+let longStrings = stringsLongerThan(["apple", "banana", "cherry"], 5);
+console.log(`Strings longer than 5: ${longStrings}`);
+
+// Print numbers from 1 to 5
+console.log("Printing numbers from 1 to 5:");
+printNumbers(5);
+
+// Calculate the sum of the ages
+let ageSumData = data.reduce((sum, person) => sum + person.age, 0);
+console.log(`Sum of ages: ${ageSumData}`);
+
+// Calculate the average age
+let averageAgeData = ageSumData / data.length;
+console.log(`Average age: ${averageAgeData}`);

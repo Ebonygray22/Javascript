@@ -1,0 +1,36 @@
+// Part 1: Stack Overflow
+let counter = 0;
+
+function recursiveFunction() {
+    counter++;
+    recursiveFunction();
+}
+
+try {
+    recursiveFunction();
+} catch (error) {
+    console.log("Error: ", error);
+    console.log("Counter Value: ", counter);
+}
+
+// Part 2: Trampolines
+function trampoline(fn) {
+    return function trampolined(...args) {
+        let result = fn(...args);
+
+        while (typeof result === 'function') {
+            result = result();
+        }
+
+        return result;
+    };
+}
+
+function flatten(arr) {
+    return arr.reduce((acc, val) => Array.isArray(val) ? () => acc.concat(flatten(val)) : acc.concat(val), []);
+}
+
+let trampolinedFlatten = trampoline(flatten);
+
+// Test the trampolinedFlatten function with a deeply nested array
+console.log(trampolinedFlatten([1, [2, [3, [4, [5]]]]]));
